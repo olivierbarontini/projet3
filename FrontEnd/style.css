@@ -108,6 +108,10 @@ section {
 body {
   line-height: 1;
 }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 ol,
 ul {
   list-style: none;
@@ -129,7 +133,10 @@ table {
 }
 /** end reset css**/
 body {
+  display: flex;
+  flex-direction: column;
   max-width: 1140px;
+  min-height: 100vh;
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
@@ -285,4 +292,71 @@ footer nav ul {
   display: flex;
   justify-content: flex-end;
   margin: 2em;
+}
+
+/* -------------------------  style pour la page Login  --------------------------------------- */
+
+.login-container {
+  max-width: 400px;
+  margin: 100px auto 0 auto;
+  text-align: center;
+}
+
+.login-container h2 {
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.login-form label {
+  text-align: left;
+  font-weight: 600;
+}
+
+.login-form input {
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0 15px;
+  font-size: 16px;
+  font-family: "Work Sans", sans-serif;
+}
+
+.login-form button {
+  background-color: #1d1d1d;
+  color: white;
+  border: none;
+  border-radius: 60px;
+  padding: 12px 0;
+  font-size: 16px;
+  cursor: pointer;
+  width: 180px;
+  margin: 20px auto 0 auto;
+}
+
+.login-form button:hover {
+  background-color: #000;
+}
+
+.forgot-password {
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+nav ul li a.active {
+  font-weight: 700;
+}
+
+footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: 2em;
 }
