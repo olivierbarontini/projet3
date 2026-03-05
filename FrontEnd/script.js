@@ -1,45 +1,62 @@
-// ------------------ Création de la gallerie dynamique ---------------------//
+// ------------------ Récupération des works ---------------------//
 
-fetch("http://localhost:5678/api/works")
-  .then((response) => response.json())
-  .then((data) => {
-    console.log("Données reçues :", data);
+export async function fetchWorks() {
+  try {
+    const response = await fetch("http://localhost:5678/api/works");
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur lors du fetch :", error);
+    return [];
+  }
+}
 
-    const gallery = document.querySelector(".gallery");
+// ------------------ Affichage de la galerie ---------------------//
 
-    data.forEach((work) => {
-      const figure = document.createElement("figure");
+export function displayGallery(works) {
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = "";
 
-      const img = document.createElement("img");
-      img.src = work.imageUrl;
-      img.alt = work.title;
+  works.forEach((work) => {
+    const figure = document.createElement("figure");
 
-      const figcaption = document.createElement("figcaption");
-      figcaption.textContent = work.title;
+    const img = document.createElement("img");
+    img.src = work.imageUrl;
+    img.alt = work.title;
 
-      figure.appendChild(img);
-      figure.appendChild(figcaption);
+    const figcaption = document.createElement("figcaption");
+    figcaption.textContent = work.title;
 
-      gallery.appendChild(figure);
+    figure.appendChild(img);
+    figure.appendChild(figcaption);
+    gallery.appendChild(figure);
+  });
+}
+
+// ------------------ Création des filtres ---------------------//
+
+export function createFilters() {
+  const filtersContainer = document.querySelector("#filters");
+  const categories = ["Tous", "Objets", "Appartements", "Hôtels & Restaurants"];
+
+  categories.forEach((cat) => {
+    const btn = document.createElement("button");
+    btn.textContent = cat;
+    btn.dataset.category = cat;
+
+    btn.addEventListener("click", () => {
+      console.log("tu as bien cliqué sur :", cat);
     });
-  })
-  .catch((error) => {
-    console.error("Erreur :", error);
+
+    filtersContainer.appendChild(btn);
   });
+}
 
-// ----------------------Création des boutons filtres -----------------------------//
+// ------------------ Initialisation ---------------------//
 
-const filtersContainer = document.querySelector("#filters");
-const categories = ["Tous", "Objets", "Appartements", "Hôtels & Restaurants"];
-categories.forEach((cat) => {
-  const btn = document.createElement("button");
-  btn.textContent = cat;
-  btn.dataset.category = cat;
-  filtersContainer.appendChild(btn);
+async function init() {
+  const works = await fetchWorks();
+  displayGallery(works);
+  createFilters();
+}
 
-  // -- Action du bouton quand on clique --//
-
-  btn.addEventListener("click", () => {
-    console.log("tu as bien cliqué sur :", cat);
-  });
-});
+init();
