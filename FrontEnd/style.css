@@ -350,6 +350,11 @@ footer nav ul {
   cursor: pointer;
 }
 
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
 nav ul li a.active {
   font-weight: 700;
 }
